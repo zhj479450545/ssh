@@ -1,0 +1,70 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-config.xml</param-value>
+  </context-param>
+  <!--<context-param>
+    <param-name>struts2-config</param-name>
+    <param-value>classpath:struts.xml</param-value>
+  </context-param>-->
+<filter>
+  <filter-name>SpringOpenSessionInViewFilter</filter-name>
+  <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
+</filter>
+  <filter-mapping>
+    <filter-name>SpringOpenSessionInViewFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>*.action</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 配置session超时时间，单位分钟 -->
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <!-- 欢迎 -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <!--错误页面 start-->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/views/error/notFound.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/WEB-INF/views/error/systemException.jsp</location>
+  </error-page>
+  <!--错误页面 end-->
+  <!-- 引入jsp的jstl标签库：c.tld、 fmt.tld、fn.tld、sql.tld、x.tld 都在jstl.jar的META-INF文件夹中-->
+  <!--<jsp-config>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+      <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
+      <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jstl/fn</taglib-uri>
+      <taglib-location>/WEB-INF/tld/fn.tld</taglib-location>
+    </taglib>
+  </jsp-config>-->
+
+</web-app>
+<!--http://www.open-open.com/lib/view/open1405494785437.html-->
